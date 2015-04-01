@@ -9,6 +9,9 @@ import select
 import sys
 
 def list_active_evdev():
+    '''Lists the next /dev/input/event* devices to generate input events.
+       Will usually only be a single device.'''
+
     devices = []
     for dev in glob.glob('/dev/input/event*'):
         try:
@@ -31,6 +34,7 @@ def list_active_evdev():
     return output
 
 if __name__ == "__main__":
+    # Print the next /dev/input/event* device to generate an input event.
     output = list_active_evdev()
 
     if len(output) == 1:
