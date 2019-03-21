@@ -69,8 +69,13 @@ def convert_keycode_to_name(code):
 def eat_events(dev):
     '''Consume and ignore events on a device until there are none.'''
 
-    while dev.read_one() is not None:
-        pass
+    while True:
+        try:
+            event = dev.read_one()
+            if event is None:
+                return
+        except Exception, e:
+            return
 
 def get_next_pressed_button_name(dev):
     '''Wait for the next button press and report its xboxdrv name.'''
