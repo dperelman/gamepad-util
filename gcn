@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+# Select a GameCube controller connected via wii-u-gc-adapter by pressing a
+#   button on it. Make that controller act like an XBox 360 controller.
+xboxdrv --evdev "$(identify_evdev.py)" --evdev-keymap "KEY_#304=a,KEY_#313=rt,KEY_#546=dl,KEY_#308=b,KEY_#310=lb,KEY_#545=dd,KEY_#315=start,KEY_#311=rb,KEY_#307=y,KEY_#305=x,KEY_#544=du,KEY_#547=dr" --evdev-absmap "ABS_RZ=rt,ABS_RY=y2,ABS_RX=x2,ABS_Z=lt,ABS_Y=y1,ABS_X=x1" --axismap "-rt=rt,-y2=y2,-lt=lt,-y1=y1" --mimic-xpad --silent
