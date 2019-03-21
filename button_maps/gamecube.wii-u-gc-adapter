@@ -1,0 +1,28 @@
+# wii-u-gc-adapter
+
+Driver version is 2.1.0.
+Joystick (Wii U GameCube Adapter Port #) has 6 axes (X, Y, Z, Rx, Ry, Rz)
+and 12 buttons (BtnA, BtnB, BtnX, BtnY, BtnTL, BtnTR, BtnTR2, BtnStart, (null), (null), (null), (null)).
+Testing ... (interrupt to exit)
+Axes:  0:  -919  1:     0  2:-32767  3:  3715  4:     0  5:-32767 Buttons:  0:off  1:off  2:off  3:off  4:off  5:off  6:off  7:off  8:off  9:off 10:off 11:off 
+
+Axes:
+  0,1: primary (left) stick X,Y
+  2: L (left bumper) (-32767 is default, ~25000 is up to the click, 32767 is pressed in all the way)
+  3,4: secondary (right, C) stick X,Y
+  5: R (right bumper)
+
+Buttons:
+  0: A (bottom)
+  1: X (right)
+  2: Y (top)
+  3: B (left)
+  4: L click (after analog part)
+  5: R click (after analog part)
+  6: Z (R2)
+  7: start
+  8: d-pad up
+  9: d-pad down
+ 10: d-pad left
+ 11: d-pad right
+
