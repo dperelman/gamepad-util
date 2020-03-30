@@ -134,7 +134,7 @@ def ask_user_for_keymap(dev):
         ('orange', 'guitar button'),
     ]
 
-    print("Press the corresponding button on your controller. If the button doesn't exist, press the start button again to ignore it.")
+    print("Press the corresponding button on your controller. If the button doesn't exist, or doesn't register, press the start button again to ignore it. It might act as an axis, we will register that later.")
     # Dictionary of XBox buttons to xboxdrv key names.
     mappings = {}
     # Values of mappings dictionary to avoid mapping the same button twice.
@@ -179,6 +179,8 @@ def ask_user_for_axismap(dev, mappings):
         ('y2', ('down', 'up'), 'right anlog stick (up/down)'),
         ('lt', ('trigger',), 'left analog trigger (L or L2 button)'),
         ('rt', ('trigger',), 'right analog trigger (R or R2 button)'),
+        ('dpad_x', ('left', 'right'), 'dpad (left/right)'),
+        ('dpad_y', ('down', 'up'), 'dpad (down/up)'),
     ]
 
     print("Move the corresponding axis on your controller. If the axis doesn't exist, press the start button to ignore it.")
