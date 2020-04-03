@@ -180,7 +180,7 @@ def ask_user_for_axismap(dev, mappings):
         ('lt', ('trigger',), 'left analog trigger (L or L2 button)'),
         ('rt', ('trigger',), 'right analog trigger (R or R2 button)'),
         ('dpad_x', ('left', 'right'), 'dpad (left/right)'),
-        ('dpad_y', ('down', 'up'), 'dpad (down/up)'),
+        ('dpad_y', ('up', 'down'), 'dpad (up/down)'),
     ]
 
     print("Move the corresponding axis on your controller. If the axis doesn't exist, press the start button to ignore it.")
