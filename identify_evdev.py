@@ -28,7 +28,7 @@ def list_active_evdev():
         r,w,x = select.select(devices, [], [])
         for fd in r:
             for event in list(devices[fd].read())[:1]:
-                output.append(devices[fd].fn)
+                output.append(devices[fd].path)
                 anyInput = True
 
     return output
