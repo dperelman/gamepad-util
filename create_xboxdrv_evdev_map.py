@@ -107,6 +107,7 @@ def get_next_maxed_axis(dev, mappings):
             absinfo = dict(dev.capabilities()[evdev.ecodes.EV_ABS])[event.code]
             axis = evdev.ecodes.ABS[event.code]
             # ... and if the min or max has been reached, return it.
+
             if event.value <= absinfo.min + 20:
                 return 'min', axis
 
