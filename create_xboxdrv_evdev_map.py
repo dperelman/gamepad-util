@@ -104,9 +104,18 @@ def get_next_maxed_axis(dev, mappings):
         # If an axis has been moved...
         elif event.type == evdev.ecodes.EV_ABS:
             # ... look up the min/max values for that axis...
+
             absinfo = dict(dev.capabilities()[evdev.ecodes.EV_ABS])[event.code]
             axis = evdev.ecodes.ABS[event.code]
             # ... and if the min or max has been reached, return it.
+            
+
+            #check for digital input represented as axes
+            if absinfo.min == -1 and absinfo.max == 1:
+                if event.value == -1:
+                    return 'min', axis
+                elif event.value == 1:
+                    return 'max', axis
 
             if event.value <= absinfo.min + 20:
                 return 'min', axis
