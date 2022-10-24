@@ -26,28 +26,33 @@ class flushfile(object):
 sys.stdout = flushfile(sys.stdout)
 
 
+num = int(input("Insert controller's /dev/input/event* number, in you don't know it, insert -1): "))
+
+evdev_filename=f"/dev/input/event{num}"
+
+if(num == -1):
 # Get the device either from the command line or by using identify_evdev
-if len(sys.argv) > 2 or len(sys.argv) == 2 and sys.argv[1] == '--help':
-    print("USAGE: %s [event-device]" % sys.argv[0], file=sys.stderr)
-    print(file=sys.stderr)
-    print("Generates a xboxdrv command for treating event-device as an XBox controller.", file=sys.stderr)
-    print("If event-device is omitted, the controller will be identified by asking the", file=sys.stderr)
-    print("user to press a button on it.", file=sys.stderr)
-    sys.exit()
-elif len(sys.argv) == 2:
-    evdev_filename = sys.argv[1]
-else:
-    from identify_evdev import list_active_evdev
-    fns = None
-    # Keep going until there's input from only one device.
-    while fns is None or len(fns) != 1:
-        print("Press any button on only the joystick you are setting up.")
-        fns = list_active_evdev()
-    evdev_filename = fns[0]
-    print("Selected event device: %s" % evdev_filename)
-    print("Stop pressing any buttons.")
-    # Give user time to stop pressing buttons.
-    time.sleep(2)
+    if len(sys.argv) > 2 or len(sys.argv) == 2 and sys.argv[1] == '--help':
+        print("USAGE: %s [event-device]" % sys.argv[0], file=sys.stderr)
+        print(file=sys.stderr)
+        print("Generates a xboxdrv command for treating event-device as an XBox controller.", file=sys.stderr)
+        print("If event-device is omitted, the controller will be identified by asking the", file=sys.stderr)
+        print("user to press a button on it.", file=sys.stderr)
+        sys.exit()
+    elif len(sys.argv) == 2:
+        evdev_filename = sys.argv[1]
+    else:
+        from identify_evdev import list_active_evdev
+        fns = None
+        # Keep going until there's input from only one device.
+        while fns is None or len(fns) != 1:
+            print("Press any button on only the joystick you are setting up.")
+            fns = list_active_evdev()
+        evdev_filename = fns[0]
+        print("Selected event device: %s" % evdev_filename)
+        print("Stop pressing any buttons.")
+        # Give user time to stop pressing buttons.
+        time.sleep(2)
 
 # Open the device
 dev = evdev.device.InputDevice(evdev_filename)
@@ -74,7 +79,7 @@ def eat_events(dev):
             event = dev.read_one()
             if event is None:
                 return
-        except Exception, e:
+        except :
             return
 
 def get_next_pressed_button_name(dev):
@@ -99,11 +104,22 @@ def get_next_maxed_axis(dev, mappings):
         # If an axis has been moved...
         elif event.type == evdev.ecodes.EV_ABS:
             # ... look up the min/max values for that axis...
+
             absinfo = dict(dev.capabilities()[evdev.ecodes.EV_ABS])[event.code]
             axis = evdev.ecodes.ABS[event.code]
             # ... and if the min or max has been reached, return it.
+            
+
+            #check for digital input represented as axes
+            if absinfo.min == -1 and absinfo.max == 1:
+                if event.value == -1:
+                    return 'min', axis
+                elif event.value == 1:
+                    return 'max', axis
+
             if event.value <= absinfo.min + 20:
                 return 'min', axis
+
             elif event.value >= absinfo.max - 20:
                 return 'max', axis
 

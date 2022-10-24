@@ -17,7 +17,7 @@ def list_active_evdev():
         try:
             devices.append(evdev.device.InputDevice(dev))
         except (IOError, OSError):
-            # Don't have permissions for that device, ignore it.
+            #Don't have permissions for that device, ignore it.
             pass
     devices = {dev.fd : dev for dev in devices}
 
